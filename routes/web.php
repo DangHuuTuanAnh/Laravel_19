@@ -14,5 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+	return view('welcome1');
+});
+
+Route::prefix('task')->group(function(){
+	Route::get('complete/3',function(){
+		return "Hoàn thành!";
+	})->name('todo.task.complete');
+	Route::get('reset/3',function(){
+		return "Làm lại!";
+	})->name('todo.task.reset');
 });

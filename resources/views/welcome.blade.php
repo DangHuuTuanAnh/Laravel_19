@@ -67,6 +67,11 @@
         </style>
     </head>
     <body>
+         <form action="/update" method="post">
+            {{csrf_field()}}
+            <input type="text" name="name">
+            <input type="submit" name="submit">
+        </form>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
