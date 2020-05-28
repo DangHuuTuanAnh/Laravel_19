@@ -27,7 +27,7 @@
 				<td>{{$value['name']}}</td>
 				<td>
 					@if($value['status'] == 0)
-					<a href="" class="btn btn-info">Chưa làm</a>
+					<a href="" class="btn btn-info">Chưa làm!</a>
 					@elseif($value['status'] == 1)
 					<a href="" class="btn btn-success">Đã hoàn thành</a>
 					@else

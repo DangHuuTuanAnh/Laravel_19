@@ -27,7 +27,7 @@ Route::get('/profile', function () {
 	return view('profile',[
 		'name'=>'Đặng Tuấn Anh',
 		'years'=>'1997',
-		'school'=>'Uneti',
+		'school'=>'Kinh Tế Kỹ Thuật Công Nghiệp',
 		'address'=>'Bắc Giang'
 
 	]);

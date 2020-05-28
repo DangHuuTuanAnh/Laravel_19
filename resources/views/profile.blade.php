@@ -23,7 +23,7 @@
 @endsection
 
 @section('title')
-Trang Chủ
+Thông Tin Cá Nhân
 @endsection
 
 @section('content')
