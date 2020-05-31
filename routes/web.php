@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+// use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,21 +17,21 @@ use Illuminate\Support\Facades\Route;
 
 // 	return view('hello1');
 // });
-Route::get('/', function () {
+	// Route::get('/', function () {
 
-	return view('home');
-});
+	// 	return view('home');
+	// });
 
-Route::get('/profile', function () {
+// Route::get('/profile', function () {
 
-	return view('profile',[
-		'name'=>'Đặng Tuấn Anh',
-		'years'=>'1997',
-		'school'=>'Kinh Tế Kỹ Thuật Công Nghiệp',
-		'address'=>'Bắc Giang'
+// 	return view('profile',[
+// 		'name'=>'Đặng Tuấn Anh',
+// 		'years'=>'1997',
+// 		'school'=>'Kinh Tế Kỹ Thuật Công Nghiệp',
+// 		'address'=>'Bắc Giang'
 
-	]);
-});
+// 	]);
+// });
 
 Route::get('/list', function () {
 
@@ -59,3 +59,24 @@ Route::get('/list', function () {
 // 		return "Làm lại!";
 // 	})->name('todo.task.reset');
 // });
+
+
+
+
+Route::resource('task', 'Frontend\TaskController');
+Route::group([
+	"prefix"=>"task",
+	"namespace"=>'Frontend'
+],function(){
+	Route::get('store/{id?}', 'TaskController@store');
+	Route::get('show/{id?}', 'TaskController@show');
+	Route::get('update/{id?}', 'TaskController@update');
+	Route::get('{id?}/edit', 'TaskController@edit');
+
+	Route::get('destroy/{id?}', 'TaskController@destroy')->name('task.destroy');
+	Route::get('complete/{id?}', 'TaskController@complete')->name('task.complete');
+	Route::get('recomplete/{id?}', 'TaskController@recomplete')->name('task.recomplete');
+});
+
+
+
