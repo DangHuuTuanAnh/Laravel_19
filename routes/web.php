@@ -35,20 +35,21 @@
 
 Route::get('/list', function () {
 
-	return view('list',['list'=>[
-		[
-			'name' => 'Học View trong Laravel',
-			'status' => 0
-		],
-		[
-			'name' => 'Học Route trong Laravel',
-			'status' => 1
-		],
-		[
-			'name' => 'Làm bài tập View trong Laravel',
-			'status' => -1
-		]
-	]]);
+	// return view('list',['list'=>[
+	// 	[
+	// 		'name' => 'Học View trong Laravel',
+	// 		'status' => 0
+	// 	],
+	// 	[
+	// 		'name' => 'Học Route trong Laravel',
+	// 		'status' => 1
+	// 	],
+	// 	[
+	// 		'name' => 'Làm bài tập View trong Laravel',
+	// 		'status' => -1
+	// 	]
+	// ]]);
+	// return view('list');
 });
 
 // Route::prefix('task')->group(function(){
@@ -68,6 +69,7 @@ Route::group([
 	"prefix"=>"task",
 	"namespace"=>'Frontend'
 ],function(){
+	// Route::get('index', 'TaskController@index');
 	Route::get('store/{id?}', 'TaskController@store');
 	Route::get('show/{id?}', 'TaskController@show');
 	Route::get('update/{id?}', 'TaskController@update');
