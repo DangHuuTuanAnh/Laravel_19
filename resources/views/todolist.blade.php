@@ -74,6 +74,16 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="task-name" class="col-sm-3 control-label">Mức độ ưu tiên:</label>
+                            <div class="col-sm-6">
+                                <select name="priority">
+                                    <option value="0">Bình thường</option>
+                                    <option value="1">Quan trọng</option>
+                                    <option value="2">Khẩn cấp</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="task-name" class="col-sm-3 control-label">Thời hạn công việc</label>
 
                             <div class="col-sm-6">
@@ -107,19 +117,38 @@
                         <tbody>
                             @foreach($tasks as $task)
                             <tr>
-                                <td class="table-text"><div>{{$task->name}}</div></td>
+                                {{-- <td class="table-text"><div>{{$task->name}}</div></td> --}}
                                 <!-- Task Complete Button -->
+                                @if($task->status == 1)
+                                <td class="table-text"><a href="{{route('task.show',$task->id)}}"><div>{{$task->name}}</a></div></td>
                                 <td>
-                                    <a href="{{route('task.complete',10)}}" type="submit" class="btn btn-success">
-                                        <i class="fa fa-btn fa-check"></i>Hoàn thành
+                                    <a href="{{route('task.complete',$task->id)}}" type="submit" class="btn btn-success">
+                                        <i class="fa fa-btn fa-check"></i> Hoàn thành
                                     </a>
+                                </td>
+                                @else
+                                <td class="table-text"><div><strike>{{$task->name}}</strike></div></td>
+                                <td>
+                                    <a href="{{route('task.recomplete',$task->id) }}" type="submit" class="btn btn-success">
+                                        <i class="fa fa-btn fa-refresh"></i> Làm lại
+                                    </a>
+                                </td>
+                                @endif
+                                <td>
+                                    <form action="{{route('task.edit',$task->id)}}" >
+
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-btn fa-pencil"></i> Sửa
+                                        </button>
+                                    </form>
                                 </td>
                                 <!-- Task Delete Button -->
                                 <td>
                                     <form action="{{route('task.destroy',$task->id)}}" >
-
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
                                         <button type="submit" class="btn btn-danger">
-                                            <i class="fa fa-btn fa-trash"></i>Xoá
+                                            <i class="fa fa-btn fa-trash"></i> Xoá
                                         </button>
                                     </form>
                                 </td>

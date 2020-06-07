@@ -33,7 +33,7 @@
 // 	]);
 // });
 
-Route::get('/list', function () {
+// Route::get('/list', function () {
 
 	// return view('list',['list'=>[
 	// 	[
@@ -50,7 +50,7 @@ Route::get('/list', function () {
 	// 	]
 	// ]]);
 	// return view('list');
-});
+// });
 
 // Route::prefix('task')->group(function(){
 // 	Route::get('complete/3',function(){
@@ -62,18 +62,20 @@ Route::get('/list', function () {
 // });
 
 
-
+	
 
 Route::resource('task', 'Frontend\TaskController');
 Route::group([
 	"prefix"=>"task",
 	"namespace"=>'Frontend'
 ],function(){
-	// Route::get('index', 'TaskController@index');
-	Route::get('store/{id?}', 'TaskController@store');
-	Route::get('show/{id?}', 'TaskController@show');
-	Route::get('update/{id?}', 'TaskController@update');
-	Route::get('{id?}/edit', 'TaskController@edit');
+	Route::get('/', 'TaskController@index')->name('task.index');
+	// Route::get('store/{id?}', 'TaskController@store')->name('task.store');
+	Route::match(['put','patch'], '{task}', 'TaskController@store')->name('task.store');
+	Route::get('show/{id?}', 'TaskController@show')->name('task.show');
+	// Route::get('update/{id?}', 'TaskController@update');
+	Route::match(['put','patch'], '{task}', 'TaskController@update')->name('task.update');
+	Route::get('{id?}/edit', 'TaskController@edit')->name('task.edit');
 
 	Route::get('destroy/{id?}', 'TaskController@destroy')->name('task.destroy');
 	Route::get('complete/{id?}', 'TaskController@complete')->name('task.complete');
