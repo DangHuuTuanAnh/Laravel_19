@@ -33,6 +33,8 @@ class TaskController extends Controller{
         $deadline = $request->get('deadline');
         $priority = $request->get('priority');
 
+        // status  == todo::Done(){}
+
         $task = new Task();
         $task->name = $name;
         $task->content = $content;   

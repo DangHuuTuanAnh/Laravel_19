@@ -62,24 +62,44 @@
 // });
 
 
-	
 
-Route::resource('task', 'Frontend\TaskController');
+
+// Route::resource('task', 'Frontend\TaskController');
+// Route::group([
+// 	"prefix"=>"task",
+// 	"namespace"=>'Frontend'
+// ],function(){
+// 	Route::get('/', 'TaskController@index')->name('task.index');
+// 	// Route::get('store/{id?}', 'TaskController@store')->name('task.store');
+// 	Route::match(['put','patch'], '{task}', 'TaskController@store')->name('task.store');
+// 	Route::get('show/{id?}', 'TaskController@show')->name('task.show');
+// 	// Route::get('update/{id?}', 'TaskController@update');
+// 	Route::match(['put','patch'], '{task}', 'TaskController@update')->name('task.update');
+// 	Route::get('{id?}/edit', 'TaskController@edit')->name('task.edit');
+
+// 	Route::get('destroy/{id?}', 'TaskController@destroy')->name('task.destroy');
+// 	Route::get('complete/{id?}', 'TaskController@complete')->name('task.complete');
+// 	Route::get('recomplete/{id?}', 'TaskController@recomplete')->name('task.recomplete');
+// });
+
+
+
 Route::group([
-	"prefix"=>"task",
-	"namespace"=>'Frontend'
-],function(){
-	Route::get('/', 'TaskController@index')->name('task.index');
-	// Route::get('store/{id?}', 'TaskController@store')->name('task.store');
-	Route::match(['put','patch'], '{task}', 'TaskController@store')->name('task.store');
-	Route::get('show/{id?}', 'TaskController@show')->name('task.show');
-	// Route::get('update/{id?}', 'TaskController@update');
-	Route::match(['put','patch'], '{task}', 'TaskController@update')->name('task.update');
-	Route::get('{id?}/edit', 'TaskController@edit')->name('task.edit');
-
-	Route::get('destroy/{id?}', 'TaskController@destroy')->name('task.destroy');
-	Route::get('complete/{id?}', 'TaskController@complete')->name('task.complete');
-	Route::get('recomplete/{id?}', 'TaskController@recomplete')->name('task.recomplete');
+    "prefix" =>"admin",
+	'namespace' => 'Backend'
+], function (){
+    // Trang dashboard - trang chủ admin
+	Route::get('/dashboard', 'DashboardController@index')->name('backend.dashboard');
+    // Quản lý sản phẩm
+	Route::group(['prefix' => 'products'], function(){
+		Route::get('/', 'ProductController@index')->name('backend.product.index');
+       Route::get('/create', 'ProductController@create')->name('backend.product.create');
+	});
+    //Quản lý người dùng
+	Route::group(['prefix' => 'users'], function(){
+		Route::get('/', 'UserController@index')->name('backend.user.index');
+		Route::get('/create', 'UserController@create')->name('backend.user.create');
+	});
 });
 
 
