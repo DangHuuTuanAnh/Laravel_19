@@ -100,7 +100,16 @@ Route::group([
 		Route::get('/', 'UserController@index')->name('backend.user.index');
 		Route::get('/create', 'UserController@create')->name('backend.user.create');
 	});
+	//Quản lý danh mục
+	Route::group(['prefix' => 'categories'], function(){
+		Route::get('/', 'CategoryController@index')->name('backend.category.index');
+	});
 });
 
 
+// Route::get('/',function(){
+// 	$users = \Illuminate\Support\Facades\DB::table('users')->get();
 
+// 	dd($users);
+// });
+Route::get('/','Frontend\HomeController@index')->name('frontend.home');

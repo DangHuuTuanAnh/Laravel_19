@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('backend.products.index');
+        $products = DB::table('products')->orderby('updated_at','desc')->simplePaginate(5);
+
+        // $users = User::paginate(15);
+        // $users = User::simplePaginate(15);     
+        return view('backend.products.index')->with([
+                'products'=>$products
+        ]);
     }
 
     /**

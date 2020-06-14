@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @section('title')
-Trang Quản Lý Sản Phẩm
+Trang Quản Lý Danh Mục
 @endsection
 
 @section('content')
@@ -11,13 +11,13 @@ Trang Quản Lý Sản Phẩm
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1 class="m-0 text-dark">Danh sách sản phẩm</h1>
+				<h1 class="m-0 text-dark">Danh sách Danh Mục</h1>
 			</div><!-- /.col -->
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
 					<li class="breadcrumb-item"><a href="#">Home</a></li>
-					<li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
-					<li class="breadcrumb-item active">Danh sách</li>
+					<li class="breadcrumb-item"><a href="#">Danh mục</a></li>
+					{{-- <li class="breadcrumb-item active">Danh sách</li> --}}
 				</ol>
 			</div><!-- /.col -->
 		</div><!-- /.row -->
@@ -30,7 +30,7 @@ Trang Quản Lý Sản Phẩm
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header">
-						<h3 class="card-title">Sản phẩm mới nhập</h3>
+						<h3 class="card-title">Danh sách danh mục</h3>
 
 						<div class="card-tools">
 							<div class="input-group input-group-sm" style="width: 150px;">
@@ -48,26 +48,25 @@ Trang Quản Lý Sản Phẩm
 							<thead>
 								<tr>
 									<th>ID</th>
-									<th>Tên sản phẩm</th>
+									<th>Tên Danh mục</th>
 									<th>Thời gian</th>
 									<th>Status</th>
 									<th>Mô tả</th>
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($products as $product)
+								@foreach($categories as $category)
 								<tr>
-									<td>{{$product->id}}</td>
-									<td>{{$product->name}}</td>
-									<td>{{$product->updated_at}}</td>
+									<td>{{$category->id}}</td>
+									<td>{{$category->name}}</td>
+									<td>{{$category->updated_at}}</td>
 									<td><span class="tag tag-success">Approved</span></td>
-									<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
 								</tr>
 								@endforeach
 							</tbody>
 						</table>
 					</div>
-					{!! $products->links() !!}
+					{!! $categories->links() !!}
 					<!-- /.card-body -->
 				</div>
 				<!-- /.card -->

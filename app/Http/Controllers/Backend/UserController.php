@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class UserController extends Controller
 {
@@ -14,7 +15,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('backend.users.index');
+        // $users = User::get();
+        $users = DB::table('users')->orderby('updated_at','desc')->simplePaginate(5);
+
+        // $users = User::paginate(15);
+        // $users = User::simplePaginate(15);     
+        return view('backend.users.index')->with([
+                'users'=>$users
+        ]);
     }
 
     /**
