@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
+use App\Models\User;
+use App\UserInfo;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,11 +18,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $users = User::get();
+        $users = User::get();
         $users = DB::table('users')->orderby('updated_at','desc')->simplePaginate(5);
 
-        // $users = User::paginate(15);
-        // $users = User::simplePaginate(15);     
         return view('backend.users.index')->with([
                 'users'=>$users
         ]);
@@ -52,9 +53,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showProducts($user_id)
     {
-        //
+
+        $user = User::find($user_id);
+        $products = $user->products;
+        return view('backend.users.showProducts')->with([
+            'user'=>$user, 
+            'products'=>$products
+
+        ]);
     }
 
     /**

@@ -94,15 +94,26 @@ Route::group([
 	Route::group(['prefix' => 'products'], function(){
 		Route::get('/', 'ProductController@index')->name('backend.product.index');
        Route::get('/create', 'ProductController@create')->name('backend.product.create');
+       Route::get('/{id}', 'ProductController@show')->name('backend.product.show');
 	});
     //Quản lý người dùng
 	Route::group(['prefix' => 'users'], function(){
 		Route::get('/', 'UserController@index')->name('backend.user.index');
 		Route::get('/create', 'UserController@create')->name('backend.user.create');
+		Route::get('/{id}', 'UserController@showProducts')->name('backend.user.showProducts');
 	});
 	//Quản lý danh mục
 	Route::group(['prefix' => 'categories'], function(){
 		Route::get('/', 'CategoryController@index')->name('backend.category.index');
+		Route::get('/{id}', 'CategoryController@showProducts')->name('backend.category.showProducts');
+	});
+	//Quản lý hình ảnh
+	Route::group(['prefix' => 'images'], function(){
+		Route::get('/{id}','ImageController@show')->name('backend.image.show');
+	});
+	//Quản lý đơn hàng:
+	Route::group(['prefix' => 'orders'], function(){
+		Route::get('/{id}','OrderController@showProducts')->name('backend.order.showProducts');
 	});
 });
 
@@ -112,4 +123,7 @@ Route::group([
 
 // 	dd($users);
 // });
-Route::get('/','Frontend\HomeController@index')->name('frontend.home');
+// Route::get('/','Frontend\HomeController@index')->name('frontend.home');
+
+
+

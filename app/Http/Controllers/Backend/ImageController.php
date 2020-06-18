@@ -1,14 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
+
 use App\Models\Image;
-use App\Models\Product;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Pagination\Paginator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = DB::table('products')->orderby('updated_at','desc')->simplePaginate(5);
-        return view('backend.products.index')->with([
-            'products'=>$products
-        ]);
+        //
     }
 
     /**
@@ -30,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('backend.products.create');
+        //
     }
 
     /**
@@ -52,15 +47,12 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
 
-        $images = $product->images;
-        return view('backend.products.show')->with([
-            'product'=>$product,
-            'images'=>$images
-        ]);
-        
+        $image = Image::find($id);
+        dd($image->product->name);
+    
     }
+
     /**
      * Show the form for editing the specified resource.
      *
