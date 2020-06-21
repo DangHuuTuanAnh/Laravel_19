@@ -13,10 +13,10 @@
 |
 */
 
-// Route::get('/', function () {
+Route::get('/', function () {
 
-// 	return view('hello1');
-// });
+	return view('welcome');
+})->middleware('auth');
 	// Route::get('/', function () {
 
 	// 	return view('home');
@@ -64,29 +64,30 @@
 
 
 
-// Route::resource('task', 'Frontend\TaskController');
-// Route::group([
-// 	"prefix"=>"task",
-// 	"namespace"=>'Frontend'
-// ],function(){
-// 	Route::get('/', 'TaskController@index')->name('task.index');
-// 	// Route::get('store/{id?}', 'TaskController@store')->name('task.store');
-// 	Route::match(['put','patch'], '{task}', 'TaskController@store')->name('task.store');
-// 	Route::get('show/{id?}', 'TaskController@show')->name('task.show');
-// 	// Route::get('update/{id?}', 'TaskController@update');
-// 	Route::match(['put','patch'], '{task}', 'TaskController@update')->name('task.update');
-// 	Route::get('{id?}/edit', 'TaskController@edit')->name('task.edit');
+Route::resource('task', 'Frontend\TaskController');
+Route::group([
+	"prefix"=>"task",
+	"namespace"=>'Frontend'
+],function(){
+	Route::get('/', 'TaskController@index')->name('task.index');
+	// Route::get('store/{id?}', 'TaskController@store')->name('task.store');
+	Route::match(['put','patch'], '{task}', 'TaskController@store')->name('task.store');
+	Route::get('show/{id?}', 'TaskController@show')->name('task.show');
+	// Route::get('update/{id?}', 'TaskController@update');
+	Route::match(['put','patch'], '{task}', 'TaskController@update')->name('task.update');
+	Route::get('{id?}/edit', 'TaskController@edit')->name('task.edit');
 
-// 	Route::get('destroy/{id?}', 'TaskController@destroy')->name('task.destroy');
-// 	Route::get('complete/{id?}', 'TaskController@complete')->name('task.complete');
-// 	Route::get('recomplete/{id?}', 'TaskController@recomplete')->name('task.recomplete');
-// });
+	Route::get('destroy/{id?}', 'TaskController@destroy')->name('task.destroy');
+	Route::get('complete/{id?}', 'TaskController@complete')->name('task.complete');
+	Route::get('recomplete/{id?}', 'TaskController@recomplete')->name('task.recomplete');
+});
 
 
 
 Route::group([
     "prefix" =>"admin",
-	'namespace' => 'Backend'
+	'namespace' => 'Backend',
+	// 'middleware'=> 'auth'
 ], function (){
     // Trang dashboard - trang chủ admin
 	Route::get('/dashboard', 'DashboardController@index')->name('backend.dashboard');
@@ -123,7 +124,18 @@ Route::group([
 
 // 	dd($users);
 // });
-// Route::get('/','Frontend\HomeController@index')->name('frontend.home');
+Route::get('/','Frontend\HomeController@index')->name('frontend.home');
 
 
 
+//Đăng ký & đăng nhập
+
+//middleware bắt buộc phải đăng nhập
+
+// public function __construct()
+// {
+//     $this->middleware('auth');
+// }
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

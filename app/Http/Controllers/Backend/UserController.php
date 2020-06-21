@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::get();
+        // $users = User::get();
         $users = DB::table('users')->orderby('updated_at','desc')->simplePaginate(5);
 
         return view('backend.users.index')->with([

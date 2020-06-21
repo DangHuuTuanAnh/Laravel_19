@@ -67,11 +67,11 @@
         </style>
     </head>
     <body>
-         <form action="/update" method="post">
+        {{--  <form action="/update" method="post">
             {{csrf_field()}}
             <input type="text" name="name">
             <input type="submit" name="submit">
-        </form>
+        </form> --}}
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -102,14 +102,14 @@
                     <a href="https://vapor.laravel.com">Vapor</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
-                <div>
+                {{-- <div>
                     <ul>
                         <li>Họ Và Tên:Đặng Tuấn Anh</li>
                         <li>Năm Sinh:1998</li>
                         <li>Trường Đại Học Kinh Tế Kỹ Thuật Công Nghiệp</li>
                         <li>Mục Tiêu: Lập Trình Viên PHP</li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
         </div>
     </body>
