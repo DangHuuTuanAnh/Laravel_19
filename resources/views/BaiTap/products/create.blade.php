@@ -34,26 +34,13 @@ Trang Thêm Mới Sản Phẩm
 					<!-- /.card-header -->
 					<!-- form start -->
 					<form role="form" method="post" action="{{ route('backend.product.store') }}">
-						@csrf
-						
-
-						{{-- Hiển thị tất cả lỗi --}}
-						@if($errors->any())
-						<div class="alert alert-danger">
-							<ul>
-								@foreach ($errors->all() as $error)
-								<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-						@endif
+						{{ csrf_field() }}
 						<div class="card-body">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Tên sản phẩm</label>
-								<input type="text" name="name" class="form-control" id="" placeholder="Điền tên sản phẩm">
-								{{-- Hiển thị lỗi từng ô input --}}
+								<input type="text" name="name" class="form-control" id="" placeholder="Điền tên sản phẩm" value="{{old('name')}}">
 								@error('name')
-								<div class="alert alert-danger">{{$message}}</div>
+								<p style="color: red;">{{$message}}</p>
 								@enderror
 							</div>
 							<div class="form-group">
@@ -64,31 +51,35 @@ Trang Thêm Mới Sản Phẩm
 									<option value="{{ $category->id }}">{{ $category->name }}</option>
 									@endforeach
 								</select>
+								
 							</div>
 							<div class="row">
 								<div class="col-6">
 									<div class="form-group">
 										<label>Giá gốc</label>
-										<input type="text" name="origin_price" class="form-control" placeholder="Điền giá gốc">
+										<input type="text" name="origin_price" class="form-control" placeholder="Điền giá gốc" value="{{old('origin_price')}}">
 									</div>
 									@error('origin_price')
-									<div class="alert alert-danger">{{$message}}</div>
+									<p style="color: red;">{{$message}}</p>
 									@enderror
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<label>Giá bán</label>
-										<input type="text" name="sale_price" class="form-control" placeholder="Điền giá gốc">
+										<input type="text" name="sale_price" class="form-control" placeholder="Điền giá bán" value="{{old('sale_price')}}">
 									</div>
 									@error('sale_price')
-									<div class="alert alert-danger">{{$message}}</div>
+									<p style="color: red;">{{$message}}</p>
 									@enderror
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Mô tả sản phẩm</label>
 								<textarea class="textarea" name="content" placeholder="Place some text here"
-								style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+								style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" value="{{old('content')}}}"></textarea>
+								@error('content')
+								<p style="color: red;">{{$message}}</p>
+								@enderror
 							</div>
 							<div class="form-group">
 								<label for="exampleInputFile">Hình ảnh sản phẩm</label>

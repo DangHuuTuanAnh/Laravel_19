@@ -33,27 +33,14 @@ Trang Thêm Mới Sản Phẩm
 					</div>
 					<!-- /.card-header -->
 					<!-- form start -->
-					<form role="form" method="post" action="{{ route('backend.product.store') }}">
-						@csrf
-						
-
-						{{-- Hiển thị tất cả lỗi --}}
-						@if($errors->any())
-						<div class="alert alert-danger">
-							<ul>
-								@foreach ($errors->all() as $error)
-								<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-						@endif
+					<form role="form" method="post" action="{{ route('backend.product.update',$product->id) }}">
+						{{ csrf_field() }}
 						<div class="card-body">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Tên sản phẩm</label>
-								<input type="text" name="name" class="form-control" id="" placeholder="Điền tên sản phẩm">
-								{{-- Hiển thị lỗi từng ô input --}}
+								<input type="text" name="name" class="form-control" id="" placeholder="Điền tên sản phẩm" value="{{$product->name}}" >
 								@error('name')
-								<div class="alert alert-danger">{{$message}}</div>
+								<p style="color: red;">{{$message}}</p>
 								@enderror
 							</div>
 							<div class="form-group">
@@ -69,26 +56,29 @@ Trang Thêm Mới Sản Phẩm
 								<div class="col-6">
 									<div class="form-group">
 										<label>Giá gốc</label>
-										<input type="text" name="origin_price" class="form-control" placeholder="Điền giá gốc">
+										<input type="text" name="origin_price" class="form-control" placeholder="Điền giá gốc" value="{{$product->origin_price}}">
 									</div>
 									@error('origin_price')
-									<div class="alert alert-danger">{{$message}}</div>
+									<p style="color: red;">{{$message}}</p>
 									@enderror
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<label>Giá bán</label>
-										<input type="text" name="sale_price" class="form-control" placeholder="Điền giá gốc">
+										<input type="text" name="sale_price" class="form-control" placeholder="Điền giá bán" value="{{$product->sale_price}}">
 									</div>
 									@error('sale_price')
-									<div class="alert alert-danger">{{$message}}</div>
+									<p style="color: red;">{{$message}}</p>
 									@enderror
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Mô tả sản phẩm</label>
 								<textarea class="textarea" name="content" placeholder="Place some text here"
-								style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+								style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" value="{{$product->content}}}"></textarea>
+								@error('content')
+								<p style="color: red;">{{$message}}</p>
+								@enderror
 							</div>
 							<div class="form-group">
 								<label for="exampleInputFile">Hình ảnh sản phẩm</label>
@@ -116,7 +106,7 @@ Trang Thêm Mới Sản Phẩm
 
 						<div class="card-footer">
 							<a href="{{ route('backend.product.index') }}" class="btn btn-default">Huỷ bỏ</a>
-							<button type="submit" class="btn btn-success">Tạo mới</button>
+							<button type="submit" class="btn btn-success">Cập nhật</button>
 						</div>
 					</form>
 				</div>

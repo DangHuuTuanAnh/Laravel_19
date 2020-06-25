@@ -96,6 +96,7 @@ Route::group([
 		Route::get('/', 'ProductController@index')->name('backend.product.index');
        Route::get('/create', 'ProductController@create')->name('backend.product.create');
        Route::get('/{id}', 'ProductController@show')->name('backend.product.show');
+       Route::post('/store','ProductController@store')->name('backend.product.store');
 	});
     //Quản lý người dùng
 	Route::group(['prefix' => 'users'], function(){
