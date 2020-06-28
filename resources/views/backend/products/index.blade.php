@@ -50,8 +50,8 @@ Trang Quản Lý Sản Phẩm
 									<th>ID</th>
 									<th>Tên sản phẩm</th>
 									<th>Thời gian</th>
-									<th>Status</th>
-									<th>Mô tả</th>
+									<th></th>
+									{{-- <th>Mô tả</th> --}}
 								</tr>
 							</thead>
 							<tbody>
@@ -60,10 +60,32 @@ Trang Quản Lý Sản Phẩm
 									<td>{{$product->id}}</td>
 									<td>{{$product->name}}</td>
 									<td>{{$product->updated_at}}</td>
-									<td><span class="tag tag-success">Approved</span></td>
-									<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+									{{-- <td><span class="tag tag-success">Approved</span></td> --}}
+									<td>
+										<form action="{{route('backend.product.show',$product->id)}}">
+											<button type="submit" class="btn btn-success">
+												<i class="fa fa-btn fa-eye"></i> Xem
+											</button>
+										</form>
+										<form action="{{-- {{route('backend.product.edit',$product->id)}} --}}" >
+
+											
+											<button type="submit" class="btn btn-primary">
+												<i class="fa fa-btn fa-pen"></i> Sửa
+											</button>
+										</form>
+										<form action="{{-- {{route('backend.product.destroy',$product->id)}} --}}" >
+											{{ csrf_field() }}
+											{{ method_field('DELETE') }}
+											<button type="submit" class="btn btn-danger">
+												<i class="fa fa-btn fa-trash"></i> Xoá
+											</button>
+										</form>
+
+									</td>
 								</tr>
 								@endforeach
+								
 							</tbody>
 						</table>
 					</div>

@@ -30,6 +30,7 @@ class StoreProductRequest extends FormRequest
             'sale_price'=>['required','numeric','min:6'],
             'content'=>['required','string'],
             'status'=>['required'],
+            'images'=>['required','image','max:10000'],
         ];
     }
     public function messages(){
@@ -40,6 +41,8 @@ class StoreProductRequest extends FormRequest
             'min'=>':attribute tối thiểu :min ký tự !',
             'max'=>':attribute tối đa :max ký tự !',
             'numeric'=>':attribute phải là kiểu số !',
+            'image'=>':attribute không đúng định dạng !',
+            'mimes'=>':attribute không đúng định dạng !',
         ];
     }
 
@@ -51,6 +54,7 @@ class StoreProductRequest extends FormRequest
             'sale_price'=>'Giá bán',
             'content'=>'Mô tả sản phẩm',
             'status'=>'Trạng thái sản phẩm',
+            'images'=>'File ảnh',
         ];
     }
 

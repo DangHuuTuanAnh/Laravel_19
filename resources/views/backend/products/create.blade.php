@@ -33,27 +33,16 @@ Trang Thêm Mới Sản Phẩm
 					</div>
 					<!-- /.card-header -->
 					<!-- form start -->
-					<form role="form" method="post" action="{{ route('backend.product.store') }}">
+					<form role="form" method="post" action="{{ route('backend.product.store') }}" enctype="multipart/form-data">
 						@csrf
 						
-
-						{{-- Hiển thị tất cả lỗi --}}
-						@if($errors->any())
-						<div class="alert alert-danger">
-							<ul>
-								@foreach ($errors->all() as $error)
-								<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-						@endif
 						<div class="card-body">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Tên sản phẩm</label>
 								<input type="text" name="name" class="form-control" id="" placeholder="Điền tên sản phẩm">
 								{{-- Hiển thị lỗi từng ô input --}}
 								@error('name')
-								<div class="alert alert-danger">{{$message}}</div>
+								<p style="color: red;">{{$message}}</p>
 								@enderror
 							</div>
 							<div class="form-group">
@@ -64,6 +53,9 @@ Trang Thêm Mới Sản Phẩm
 									<option value="{{ $category->id }}">{{ $category->name }}</option>
 									@endforeach
 								</select>
+								@error('category_id')
+								<p style="color: red;">{{$message}}</p>
+								@enderror
 							</div>
 							<div class="row">
 								<div class="col-6">
@@ -72,8 +64,8 @@ Trang Thêm Mới Sản Phẩm
 										<input type="text" name="origin_price" class="form-control" placeholder="Điền giá gốc">
 									</div>
 									@error('origin_price')
-									<div class="alert alert-danger">{{$message}}</div>
-									@enderror
+								<p style="color: red;">{{$message}}</p>
+								@enderror
 								</div>
 								<div class="col-6">
 									<div class="form-group">
@@ -81,26 +73,32 @@ Trang Thêm Mới Sản Phẩm
 										<input type="text" name="sale_price" class="form-control" placeholder="Điền giá gốc">
 									</div>
 									@error('sale_price')
-									<div class="alert alert-danger">{{$message}}</div>
-									@enderror
+								<p style="color: red;">{{$message}}</p>
+								@enderror
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Mô tả sản phẩm</label>
 								<textarea class="textarea" name="content" placeholder="Place some text here"
 								style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+								@error('content')
+								<p style="color: red;">{{$message}}</p>
+								@enderror
 							</div>
 							<div class="form-group">
 								<label for="exampleInputFile">Hình ảnh sản phẩm</label>
 								<div class="input-group">
 									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="exampleInputFile">
-										<label class="custom-file-label" for="exampleInputFile">Choose file</label>
+										<input type="file" class="custom-file-input" id="exampleInputFile" name="images[]" multiple>
+										<label class="custom-file-label" for="exampleInputFile" >Choose file</label>
 									</div>
 									<div class="input-group-append">
 										<span class="input-group-text" id="">Upload</span>
 									</div>
 								</div>
+								@error('images')
+								<p style="color: red;">{{$message}}</p>
+								@enderror
 							</div>
 							<div class="form-group">
 								<label>Trạng thái sản phẩm</label>
@@ -110,6 +108,9 @@ Trang Thêm Mới Sản Phẩm
 									<option value="1">Mở bán</option>
 									<option value="-1">Hết hàng</option>
 								</select>
+								@error('status')
+								<p style="color: red;">{{$message}}</p>
+								@enderror
 							</div>
 						</div>
 						<!-- /.card-body -->

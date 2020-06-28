@@ -8,80 +8,87 @@ Trang Quản Lý Sản Phẩm
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<!-- Content Header -->
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1 class="m-0 text-dark">Chi tiết sản phẩm</h1>
-			</div><!-- /.col -->
-			<div class="col-sm-6">
-				<ol class="breadcrumb float-sm-right">
-					<li class="breadcrumb-item"><a href="#">Home</a></li>
-					<li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
-					<li class="breadcrumb-item active">Danh sách</li>
-				</ol>
-			</div><!-- /.col -->
-		</div><!-- /.row -->
-	</div><!-- /.container-fluid -->
-	<!-- Content -->
-	<div class="container-fluid">
-		<!-- Main row -->
-		<div class="row">
+	<section class="content">
 
-			<div class="col-12">
-				<div class="card">
-					<div class="card-header">
-						<h3 class="card-title">Sản phẩm mới nhập</h3>
+      <!-- Default box -->
+      <div class="card card-solid">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <h3 class="d-inline-block d-sm-none">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+              @foreach($image as $img)
+              <div class="col-12">
+                <img src="{{$img->path}}" class="product-image" alt="Product Image">
+              </div>
+              @endforeach
+              <div class="col-12 product-image-thumbs">
+              	@foreach($images as $image)
+                <div class="product-image-thumb active"><img src="{{$image->path}}" alt="Product Image"></div>
+                @endforeach
+              
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <h3 class="my-3">{{$product->name}}</p>
 
-						<div class="card-tools">
-							<div class="input-group input-group-sm" style="width: 150px;">
-								<input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+              <hr>
+             
+			
+              <div class="bg-gray py-2 px-3 mt-4">
+                <h2 class="mb-0">
+                  Giá bán: {{number_format($product->sale_price)}} VNĐ
+                </h2>
+                <h4 class="mt-0">
+                  <small>Giá gốc: {{number_format($product->origin_price)}} VNĐ</small>
+                </h4>
+              </div>
 
-								<div class="input-group-append">
-									<button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /.card-header -->
-					<div class="card-body table-responsive p-0">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>Tên sản phẩm</th>
-									<th>Thumbnail</th>
-									<th>Thời gian</th>
-									{{-- <th>Status</th> --}}
-									
-									<th>Mô tả</th>
-								</tr>
-							</thead>
-							<tbody>
-								
-								<tr>
-									<td>{{$product->id}}</td>
-									<td>{{$product->name}}</td>
-									
-									<td>
-										@foreach($images as $image)
-										{{$image->name}}<br>
-										@endforeach
-									</td>
-									<td>{{$product->updated_at}}</td>
-									{{-- <td><span class="tag tag-success">Approved</span></td> --}}
-									<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					{{-- {!! $products->links() !!} --}}
-					<!-- /.card-body -->
-				</div>
-				<!-- /.card -->
-			</div>
-		</div>
-		<!-- /.row (main row) -->
-	</div><!-- /.container-fluid -->
+              {{-- <div class="mt-4">
+                <div class="btn btn-primary btn-lg btn-flat">
+                  <i class="fas fa-cart-plus fa-lg mr-2"></i> 
+                  Add to Cart
+                </div>
+
+                <div class="btn btn-default btn-lg btn-flat">
+                  <i class="fas fa-heart fa-lg mr-2"></i> 
+                  Add to Wishlist
+                </div>
+              </div> --}}
+
+              <div class="mt-4 product-share">
+                <a href="#" class="text-gray">
+                  <i class="fab fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="#" class="text-gray">
+                  <i class="fab fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="#" class="text-gray">
+                  <i class="fas fa-envelope-square fa-2x"></i>
+                </a>
+                <a href="#" class="text-gray">
+                  <i class="fas fa-rss-square fa-2x"></i>
+                </a>
+              </div>
+
+            </div>
+          </div>
+          <div class="row mt-4">
+            <nav class="w-100">
+              <div class="nav nav-tabs" id="product-tab" role="tablist">
+                <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Description</a>
+                <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href
+              </div>
+            </nav>
+            <div class="tab-content p-3" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">{!! $product->content!!}</div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+    </section>
 </div>
 </section>
 @endsection

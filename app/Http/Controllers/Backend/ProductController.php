@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -101,8 +102,53 @@ class ProductController extends Controller
         $product->status = $status;
 
         $product->save();
-        return redirect()->route('backend.product.index');
-    }
+
+        if ($request->hasFile('images')){
+        //Upload nhiều ảnh:
+            $images = $request->file('images');
+            foreach ($images as $image){
+           // $file = $image->store('image');
+
+           // $url = 'storage/abc/a.png';
+
+           $namefile = $image->getClientOriginalName();//lấy tên file:
+           // $path = 'avatar/'.$namefile;
+           // $url = $path;
+           // dd($path);
+
+           $product_images =Storage::disk('public')->putFileAs('products',$image,$namefile);
+
+           $url = Storage::url($product_images);
+
+            // dd($images);
+
+           // dd($url);
+
+            // // dd($product->id);
+
+           $image = $product->images()->create([
+            'name' => $namefile,
+            'path' =>$url
+
+
+
+        ]);
+       }
+
+        //Cách 1:
+        // $path = Storage::putFile('images1', $request->file('image'));
+
+        //Cách 2:
+        // $file = $request->file('image');
+        // Lưu vào trong thư mục storage
+        // $path = $file->store('images');
+        // $path = $file->store('images1',['disk'=>'public']);
+        // dd('co file');
+   }else{
+    dd('khong co file');
+}
+return redirect()->route('backend.product.index');
+}
 
     /**
      * Display the specified resource.
@@ -115,9 +161,13 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         $images = $product->images;
+        $image = Image::where('product_id',$id)->limit(1)->get();
+
+        
         return view('backend.products.show')->with([
             'product'=>$product,
-            'images'=>$images
+            'images'=>$images,
+            'image' =>$image
         ]);
         
     }
