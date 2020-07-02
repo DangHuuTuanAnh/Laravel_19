@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @section('title')
-Trang Quản Lý Sản Phẩm
+Trang Quản Lý Người Dùng
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@ Trang Quản Lý Sản Phẩm
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1 class="m-0 text-dark">Danh sách sản phẩm</h1>
+				<h1 class="m-0 text-dark">Thông tin khách hàng</h1>
 			</div><!-- /.col -->
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
@@ -30,7 +30,7 @@ Trang Quản Lý Sản Phẩm
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header">
-						<h3 class="card-title">Sản phẩm mới nhập</h3>
+						<h3 class="card-title">Thông tin khách hàng</h3>
 
 						<div class="card-tools">
 							<div class="input-group input-group-sm" style="width: 150px;">
@@ -48,57 +48,37 @@ Trang Quản Lý Sản Phẩm
 							<thead>
 								<tr>
 									<th>ID</th>
-									<th>Tên sản phẩm</th>
-									<th>Hình ảnh sản phẩm</th>
-									<th></th>
-									{{-- <th>Mô tả</th> --}}
+									<th>Tên khách hàng</th>
+									<th>Sản phẩm đã mua</th>
+									<th>Thời gian</th>
+									{{-- <th>Status</th> --}}
+									
+									<th>Mô tả</th>
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($products as $product)
-								<tr>
-									<td>{{$product->id}}</td>
-									<td>{{$product->name}}</td>
-									<td>{{$product->updated_at}}</td>
-									<td>
-										<div class="row">
-											@can('update-product', $product)
-											<form action="{{route('backend.product.show',$product->id)}}">
-												<button type="submit" class="btn btn-success">
-													<i class="fa fa-btn fa-eye"></i>
-												</button>
-											</form>
-											<form action="{{route('backend.product.edit',$product->id)}}" >
-												<button type="submit" class="btn btn-primary">
-													<i class="fa fa-btn fa-edit"></i>
-												</button>
-											</form>
-											<form action="{{route('backend.product.destroy',$product->id)}}" >
-												{{ csrf_field() }}
-												{{ method_field('DELETE') }}
-												<button type="submit" class="btn btn-danger">
-													<i class="fa fa-btn fa-trash-alt"></i>
-												</button>
-											</form>
-											@endcan
-											@cannot('update-product',$product)
-											<form action="{{route('backend.product.show',$product->id)}}">
-												<button type="submit" class="btn btn-success">
-													<i class="fa fa-btn fa-eye"></i>
-												</button>
-											</form>
-											@endcannot
-										</div>
-										
-									</td>
-								</tr>
-								@endforeach
 								
+								<tr>
+									<td>{{$user->id}}</td>
+									<td>{{$user->name}}</td>
+									
+									{{-- <td>
+										@foreach($products as $product)
+										{{$product->name}}<br>
+										@endforeach
+									</td> --}}
+									<td>{{$user->updated_at}}</td>
+									{{-- <td><span class="tag tag-success">Approved</span></td> --}}
+									
+								</tr>
 							</tbody>
 						</table>
 					</div>
-					{!! $products->links() !!}
+					{{-- {!! $products->links() !!} --}}
 					<!-- /.card-body -->
+					<div class="card-footer">
+						<a href="{{ route('backend.user.index') }}" class="btn btn-default">Quay Lại</a>
+					</div>
 				</div>
 				<!-- /.card -->
 			</div>

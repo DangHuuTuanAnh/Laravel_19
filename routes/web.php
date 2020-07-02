@@ -97,12 +97,30 @@ Route::group([
        Route::get('/create', 'ProductController@create')->name('backend.product.create');
        Route::get('/{id}', 'ProductController@show')->name('backend.product.show');
        Route::post('/store','ProductController@store')->name('backend.product.store');
+       Route::get('edit/{id}','ProductController@edit')->name('backend.product.edit');
+
+       // Route::get('edit/{product}',function(\App\Models\Product $product){
+       // 	// dd($product);
+       // 	return view('backend.products.edit');
+       // })->name('backend.product.edit')
+       // ->middleware('can:update,product');
+
+
+       Route::post('update/{id}','ProductController@update')->name('backend.product.update');
+       Route::get('destroy/{id}','ProductController@destroy')->name('backend.product.destroy');
+       // Route::get('destroy/{product}',function(\App\Models\Product $product){
+       // 	return redirect()->route('backend.product.index');
+       // 	// dd('OK');
+       // })->name('backend.product.destroy')->middleware('can:delete,product');
 	});
     //Quản lý người dùng
 	Route::group(['prefix' => 'users'], function(){
 		Route::get('/', 'UserController@index')->name('backend.user.index');
-		Route::get('/create', 'UserController@create')->name('backend.user.create');
-		Route::get('/{id}', 'UserController@showProducts')->name('backend.user.showProducts');
+		Route::post('create', 'UserController@create')->name('backend.user.create');
+		Route::get('showProducts/{id}', 'UserController@showProducts')->name('backend.user.showProducts');
+		Route::get('edit/{id}','UserController@edit')->name('backend.user.edit');
+		Route::post('update/{id}','UserController@update')->name('backend.user.update');
+		Route::get('destroy/{id}','UserController@destroy')->name('backend.user.destroy');
 	});
 	//Quản lý danh mục
 	Route::group(['prefix' => 'categories'], function(){

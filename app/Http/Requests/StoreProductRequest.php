@@ -30,7 +30,9 @@ class StoreProductRequest extends FormRequest
             'sale_price'=>['required','numeric','min:6'],
             'content'=>['required','string'],
             'status'=>['required'],
-            'images'=>['required','image','max:10000'],
+            'images'=>['required'],
+            'images.*'=>['image','mimes:jpeg,jpg,png','max:2000'],
+
         ];
     }
     public function messages(){

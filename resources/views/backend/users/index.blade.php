@@ -60,7 +60,37 @@ Trang Quản Lý Người Dùng
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{ $user->created_at }}</td>
-                                    <td><span class="tag tag-success">Approved</span></td>
+                                    <td>
+                                        <div class="row">
+                                            @can('update-user', $user)
+                                            <form action="{{route('backend.user.showProducts',$user->id)}}">
+                                                <button type="submit" class="btn btn-success">
+                                                    <i class="fa fa-btn fa-eye"></i>
+                                                </button>
+                                            </form>
+                                            <form action="{{route('backend.user.edit',$user->id)}}" >
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fa fa-btn fa-edit"></i>
+                                                </button>
+                                            </form>
+                                            <form action="{{route('backend.user.destroy',$user->id)}}" >
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fa fa-btn fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                            @endcan
+                                            @cannot('update-user',$user)
+                                            <form action="{{route('backend.user.showProducts',$user->id)}}">
+                                                <button type="submit" class="btn btn-success">
+                                                    <i class="fa fa-btn fa-eye"></i>
+                                                </button>
+                                            </form>
+                                            @endcannot
+                                        </div>
+                                        
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

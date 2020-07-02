@@ -51,9 +51,8 @@ Trang Quản Lý Người Dùng
 									<th>Tên khách hàng</th>
 									<th>Sản phẩm đã mua</th>
 									<th>Thời gian</th>
-									{{-- <th>Status</th> --}}
 									
-									<th>Mô tả</th>
+									{{-- <th>Mô tả</th> --}}
 								</tr>
 							</thead>
 							<tbody>
@@ -76,6 +75,9 @@ Trang Quản Lý Người Dùng
 					</div>
 					{{-- {!! $products->links() !!} --}}
 					<!-- /.card-body -->
+				</div>
+				<div class="card-footer">
+					<a href="{{ route('backend.user.index') }}" class="btn btn-default">Quay Lại</a>
 				</div>
 				<!-- /.card -->
 			</div>

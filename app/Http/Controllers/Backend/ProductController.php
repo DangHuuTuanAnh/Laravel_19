@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -46,8 +48,8 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
-    // public function store(Request $request)
+    // public function store(StoreProductRequest $request)
+    public function store(Request $request)
     {
 
 
@@ -94,12 +96,35 @@ class ProductController extends Controller
         $content = $request->get('content');
         $status = $request->get('status');
 
+        //Test lưu thông số kỹ thuật:
+
+        // $manufacturer = $request->get('manufacturer');     
+        // $size = $request->get('size');     
+        // $weight = $request->get('weight');     
+        // $ram = $request->get('ram');     
+        // $memory = $request->get('memory');     
+        // $sim = $request->get('sim');
+
+        // $configs = array(
+        //     'manufacturer'=>$manufacturer,
+        //     'size'=>$size,
+        //     'weight'=>$weight,
+        //     'ram'=>$ram,
+        //     'memory'=>$memory,
+        //     'sim'=>$sim,
+        // );     
+
+        // dd(json_encode($configs));
+
+        //End test
+
         $product->name = $name;
         $product->category_id = $category;
         $product->sale_price = $sale_price;
         $product->origin_price = $origin_price;
         $product->content = $content;
         $product->status = $status;
+        // $product->configs = json_encode($configs);
 
         $product->save();
 
@@ -160,6 +185,12 @@ return redirect()->route('backend.product.index');
     {
         $product = Product::find($id);
 
+        $configs = $product->configs;
+
+        $show_configs = json_decode($configs);
+
+        // dd($show_configs);
+
         $images = $product->images;
         $image = Image::where('product_id',$id)->limit(1)->get();
 
@@ -167,7 +198,8 @@ return redirect()->route('backend.product.index');
         return view('backend.products.show')->with([
             'product'=>$product,
             'images'=>$images,
-            'image' =>$image
+            'image' =>$image,
+            'show_configs'=>$show_configs,
         ]);
         
     }
@@ -178,9 +210,26 @@ return redirect()->route('backend.product.index');
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
+    // public function edit(Product $product)
     {
-        //
+        $user = Auth::user();
+        $product = Product::find($id);
+        $categories = Category::get();
+
+        if ($user->can('update', $product)) {
+            // dd('OK');
+           return view('backend.products.edit')->with([
+            'categories'=>$categories,
+            'product'=>$product,
+        ]);
+       }else{
+            // dd('NO');
+        return redirect()->route('backend.product.index');
     }
+    
+}
+
+
 
     /**
      * Update the specified resource in storage.
@@ -189,9 +238,37 @@ return redirect()->route('backend.product.index');
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreProductRequest $request, $id)
+    // public function update(StoreProductRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        //
+
+        $categories = Category::get();
+        $product = Product::find($id);
+        if (Gate::allows('update-product',$product)) {
+            // return view('backend.products.edit',['product'=>$product,'categories'=>$categories]);
+            // dd('OK');
+            $name = $request->get('name');
+            $category_id = $request->get('category_id');
+            $origin_price = $request->get('origin_price');
+            $sale_price= $request->get('sale_price');
+            $content = $request->get('content');
+            $status = $request->get('status');
+
+            $product->name = $name;
+            $product->category_id = $category_id;
+            $product->origin_price = $origin_price;
+            $product->sale_price = $sale_price;
+            $product->content = $content;
+            $product->status = $status;
+
+            $product->save();
+
+            return redirect()->route('backend.product.index');
+        }else{
+            dd('NO');
+        }
+
+        
     }
 
     /**
@@ -200,8 +277,20 @@ return redirect()->route('backend.product.index');
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    // public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $user = Auth::user();
+        $product = Product::find($product);
+        if ($user->can('delete',$product)) {
+            $product->delete();
+            // return redirect()->route('backend.product.index');
+            dd('OK');
+        }
+        else{
+            dd('NO');
+        }
+
+
     }
 }
